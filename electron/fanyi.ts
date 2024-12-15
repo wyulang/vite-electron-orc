@@ -1,7 +1,9 @@
 // cheerio puppeteer
 import { ipcMain } from "electron";
 import * as cheerio from 'cheerio';
+import { executablePath } from "puppeteer";
 const puppeteer = require('puppeteer')
+import path from "node:path";
 const md5 = require('md5');
 
 
@@ -10,7 +12,11 @@ ipcMain.handle('youdao', async (e, data) => {
   if (checkChinese(data.word)) {
     from = "zh";
   }
-  return puppeteer.launch({ headless: true, defaultViewport: { width: 375, height: 900, isMobile: true, deviceScaleFactor: 2, devtools: true } }).then(browser => {
+  return puppeteer.launch({
+     headless: true,
+    //  executablePath:path.join(__dirname, "./chrome.exe"),
+      defaultViewport: { width: 375, height: 900, isMobile: true, deviceScaleFactor: 2, devtools: true }
+     }).then(browser => {
     return browser.newPage().then(async page => {
       await page.setUserAgent("Mozilla/5.0 (Linux; Android 9; COL-AL10 Build/HUAWEICOL-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 Mobile Safari/537.36")
       await page.goto(`https://youdao.com/m/result?word=${data.word}&lang=en`);
