@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./xiaoxuebao.db"
+}
+
+model user {
+  id         Int    @id @default(autoincrement())
+  name       String
+  password   String
+  ctime      String
+  ltime      String @default(" ")
+  loginCount Int    @default(0)
+  email      String
+}
+
+model topic {
+  id     Int    @id @default(autoincrement())
+  name   String
+  type   String //填空 单选 多选
+  pic    String
+  url    String //来源地址
+  remark String //
+  answer String //答案
+  ctime  String //创建时间
+}
+
+model toplist {
+  id     Int     @id @default(autoincrement())
+  tid    Int
+  title  String
+  pic    String //试题相关图片
+  remark String
+  ctime  String
+  ok     Boolean //是否正确答案
+}
+
+model category {
+  id     Int    @id @default(autoincrement())
+  pid    Int
+  name   String
+  remark String
+  sort   Int    @default(10)
+  ctime  String
+}

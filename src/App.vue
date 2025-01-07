@@ -65,10 +65,8 @@ const nameList = ref([]);
 const volume = ref(1);
 
 const voiceList = [];
-const { ipcRenderer } = window.require('electron');
-
 function btnBarSize(type) {
-  ipcRenderer.invoke('win-bar', type);
+  window.storeApi.ipcRenderer('win-bar', type);
 }
 
 function btnReplay() {
@@ -76,11 +74,15 @@ function btnReplay() {
 }
 
 function btnConsloe() {
-  ipcRenderer.invoke('open-dev', "");
+  window.storeApi.ipcRenderer('open-dev', "");
 }
 
 function playConfig() {
   isPlay.value = true;
+}
+
+function formatTip(e){
+  return e
 }
 
 function btnSave() {
@@ -90,7 +92,7 @@ function btnSave() {
 }
 
 if (!yy.storage('voiceList')) {
-  ipcRenderer.invoke('getVoice', {}).then(list => {
+  window.storeApi.ipcRenderer('getVoice', {}).then(list => {
     yy.storage('voiceList', list);
     yy.storage('nameList', list[0].list);
     st.nameList = list[0].list;

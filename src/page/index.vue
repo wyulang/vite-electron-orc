@@ -55,10 +55,10 @@ const st = useStore();
 const info = reactive({
   serchText: "",
   phrase: [],
-  isLoad:false,
+  isLoad: false,
   detail: []
 })
-const { ipcRenderer } = window.require('electron');
+// const { ipcRenderer } = window.require('electron');
 
 function btnClear() {
   info.serchText = "";
@@ -67,14 +67,18 @@ function btnClear() {
 }
 
 function blurSerch(e) {
+  window.storeApi.setUser().then(res=>{
+    console.log(res);
+  })
+  return;
   if (!info.serchText.trim()) {
     yy.msg.error('请输入单词或文本');
     return;
   }
-  info.isLoad=true;
-  ipcRenderer.invoke('youdao', { word: info.serchText }).then(res => {
+  info.isLoad = true;
+  window['storeApi'].ipcRenderer('youdao', { word: info.serchText }).then(res => {
     console.log(res)
-    info.isLoad=false;
+    info.isLoad = false;
     info.detail = res;
   })
 }
@@ -86,7 +90,7 @@ function onHear(item) {
   } else {
     // const audio = new Audio(`https://sensearch.baidu.com/gettts?lan=uk&spd=1&source=alading&text=${info.serchText}`);
     // audio.play()
-    ipcRenderer.invoke('tts-speek', { message: `葫芦娃跌停`, ...st.ttsConfig }).then(res => {
+    window['storeApi'].ipcRenderer('tts-speek', { message: `葫芦娃跌停`, ...st.ttsConfig }).then(res => {
 
     })
   }
@@ -141,7 +145,7 @@ function parseMultiJson(jsonStr) {
 }
 
 function btnPlay() {
-  ipcRenderer.invoke('youdao', { word: 'your' }).then(res => {
+  window['storeApi'].ipcRenderer('youdao', { word: 'your' }).then(res => {
     console.log(res);
   })
 }

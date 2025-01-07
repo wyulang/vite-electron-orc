@@ -1,11 +1,15 @@
 {
-  "name": "xuewuyou",
-  "private": true,
-  "version": "1.1.3",
-  "main": "www/index.js",
+  "name": "xueyabao",
+  "version": "1.0.0",
+  "main": "wwww/index.js",
+  "scripts": {
+    "dev": "vite",
+    "win": "vite build && prisma generate && electron-builder",
+    "preview": "vite preview"
+  },
   "build": {
-    "appId": "xuewuyou.wyulang.app",
-    "copyright": "Copyright © 2024 <xuewuyou>",
+    "appId": "xueyabao.wyulang.app",
+    "copyright": "Copyright © 2024 <xueyabao>",
     "productName": "学无优",
     "win": {
       "icon": "./logo.ico",
@@ -18,49 +22,43 @@
           ]
         }
       ]
-    }
+    },
+    "extraResources": [
+      {
+        "from": "generated/client/",
+        "to": "generated/client/"
+      },
+      {
+        "from": "prisma/xiaoxuebao.db",
+        "to": "db/xiaoxuebao.db"
+      }
+    ]
   },
-  "scripts": {
-    "dev": "vite",
-    "win": "vite build && electron-builder",
-    "preview": "vite preview"
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "less": "^4.2.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vite-plugin-electron": "^0.29.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vue-tsc": "^2.2.0"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.657.0",
-    "@capacitor-community/image-to-text": "^6.0.1",
-    "axios": "^1.6.2",
-    "body-parser": "^1.20.3",
+    "@prisma/client": "^6.1.0",
+    "axios": "^1.7.9",
     "cheerio": "^1.0.0",
-    "cors": "^2.8.5",
-    "easy-formula-editor": "^0.0.2-alpha.1",
-    "edge-tts-client": "^1.0.2",
-    "electron-log": "^5.0.1",
-    "express": "^4.21.1",
+    "electron-log": "^5.2.4",
     "md5": "^2.3.0",
-    "node-edge-tts": "^1.2.7",
-    "node-xlsx": "^0.23.0",
-    "pinia": "^2.1.7",
-    "puppeteer": "^23.9.0",
-    "puppeteer-core": "^23.9.0",
-    "puppeteer-electron": "^0.0.10",
-    "puppeteer-in-electron": "^3.0.5",
-    "read-excel-file": "^5.8.5",
-    "tesseract.js": "^5.1.1",
-    "uuid": "^9.0.1",
-    "vue-router": "^4.2.5"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^4.5.0",
-    "electron": "^27.1.3",
-    "electron-builder": "^24.9.1",
-    "electron-log": "^5.0.1",
-    "less": "^4.2.0",
-    "node-xlsx": "^0.23.0",
-    "tree-kill": "^1.2.2",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.0",
-    "vite-plugin-electron": "^0.15.4",
-    "vue-tsc": "^1.8.22",
-    "ws": "^8.18.0"
+    "pinia": "^2.3.0",
+    "prisma": "^6.1.0",
+    "puppeteer": "^23.11.1",
+    "sqlite3": "^5.1.7",
+    "vite-copy-plugin": "^0.4.0"
   }
 }

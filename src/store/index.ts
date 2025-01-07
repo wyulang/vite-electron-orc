@@ -37,12 +37,13 @@ export default defineStore('main', {
         yy.msg({ message: '单词或文本不为空！', type: "error" });
         return
       }
-      const { ipcRenderer } = window['require']('electron');
-      ipcRenderer.invoke('tts-speek', { message: data, ...this.ttsConfig }).then(res => {
+      
+      window['storeApi'].ipcRenderer('tts-speek', { message: data, ...this.ttsConfig }).then(res => {
         const blob = new Blob(res, { type: 'audio/webm' })
         const audio = new Audio(URL.createObjectURL(blob));
         audio.play()
       })
-    }
+    },
+  
   },
 })

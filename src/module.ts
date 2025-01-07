@@ -6,7 +6,6 @@ import scroll from "@packages/scroll.vue";
 import cascader from "@packages/cascader.vue";
 import drawer from "@packages/drawer.vue";
 import dropdown from "@packages/dropdown.vue";
-import editor from "@packages/editor.vue";
 import number from "@packages/number.vue";
 import Input from "@packages/input.vue";
 import Select from "@packages/Select.vue";
@@ -25,7 +24,6 @@ export default function (app) {
   app.component('cascader', cascader)
   app.component('drawer', drawer)
   app.component('dropdown', dropdown)
-  app.component('editor', editor)
   app.component('Input', Input)
   app.component('Select', Select)
   app.component('number', number)
