@@ -20,7 +20,7 @@
             <div class="pl10 pr10 fc-fff flex pt7 pb7 fs-16 ai-c ba-5 w-all">{{item.title}}</div>
             <span class="abs al10 fs-16 pp5 ba-5 ra-5 ab10 fc-fff">{{item.duration}}</span>
             <span class="iconfont fs-33 icon-mv fc-fff abs absc"></span>
-            <span @click.stop="toheji(item)" v-if="item.type=='heji'" class="abs ar10 pp7 ab10 ba-5 ra-5 fc-fff">合集</span>
+            <span @click.stop="toheji(item)" v-if="item.type=='heji'" class="abs ar10 pp7 ab10 ba-5 ra-5 fc-fff">合集({{item.count}})个</span>
           </div>
         </div>
       </scroll>
@@ -30,8 +30,10 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive } from 'vue';
-const { ipcRenderer } = window.require('electron');
+defineOptions({
+  name:'video'
+})
+import { ref, reactive, onActivated, onDeactivated } from 'vue';
 import yy from '@lib/mixin';
 import { useRouter } from 'vue-router';
 const rt = useRouter();
@@ -47,6 +49,7 @@ const info = reactive({
 })
 
 function onSerch() {
+ 
   if (!info.serchText.trim()) {
     yy.msg.error('请输入视频资料名称');
     return;
@@ -78,7 +81,10 @@ function toheji(item) {
     referlid: item.heji.referlid,
     sign: item.heji.sign,
     page: 0,
-    count: item.heji.count
+    word: item.heji.word,
+    count: item.heji.count,
+    loc: item.loc,
+    number:item.number
   }
   setTimeout(() => {
     rt.push('/video/heji')
@@ -111,7 +117,7 @@ function initData(page = 10) {
 
   if (info.isBotom) return;
   yy.spinner.show()
-  ipcRenderer.invoke('baidu-video', { serchText: info.serchText, page: info.page }).then(res => {
+  window['storeApi'].ipcRenderer('baidu-video', { serchText: info.serchText, page: info.page }).then(res => {
     console.log(res);
 
     yy.spinner.close()
@@ -133,7 +139,8 @@ function initData(page = 10) {
         vid: v.vid,
         type: v.dataType,
         heji: v.dataType == 'heji' && getUrlParams(decodeURIComponent(v.strongUrlParams.sfUrl)) || {},
-        count: v.number || 0
+        count: v.number || 0,
+        loc: v.loc
       }
     }))
   })

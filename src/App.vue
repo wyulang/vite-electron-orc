@@ -1,10 +1,13 @@
 <template>
-  <div class="w-all ra-5 b-e hv-all">
+  <div v-if="$route.name=='capture'" class="w-all nodarg h-all">
+    <router-view></router-view>
+  </div>
+  <div v-else class="w-all ra-5 hv-all b-e h-all">
     <div class="w-all bc-fff flex hidden ra-5 sha-card h-all">
       <div class="w-71 bc-1e3a8a flex fd-c nodarg ai-c pt30 h-all">
         <span @click="$router.push('/')" :class="$route.name=='index'?'fc-pri':'fc-fff'" class="icon-fanyiyuyan iconfont hand fs-35 "></span>
-        <span class="icon-tupianshizi iconfont hand mt30 fs-38 fc-fff"></span>
         <span @click="$router.push('/video')" :class="$route.name=='video'?'fc-pri':'fc-fff'" class="icon-mv iconfont hand mt30 fs-32"></span>
+        <span @click="$router.push('/timu')" :class="$route.name=='timu'?'fc-pri':'fc-fff'" class="icon-tupianshizi iconfont hand mt30 fs-38"></span>
       </div>
       <div class="flex-1 rel">
         <div class="flex abs ai-c ar10 at10">
@@ -15,7 +18,12 @@
           <span @click="btnBarSize('max')" class="iconfont nodarg hoverBar hand hand fs-20 ml15 icon-3zuidahua-1"></span>
           <span @click="btnBarSize('close')" class="iconfont nodarg hoverBar hand hand fs-22 ml15 icon-guanbi"></span>
         </div>
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+          <keep-alive v-if="$route.meta.keep">
+            <component :is="Component"></component>
+          </keep-alive>
+          <component :is="Component" v-if="!$route.meta.keep"></component>
+        </router-view>
       </div>
     </div>
   </div>
@@ -51,18 +59,33 @@
   </dig>
 
   <div @click="st.play.url=''" v-if="st.play.url" class="w-all nodarg flex pp20 ai-c jc-c h-all fixed at0 al0 ab0 ar0 ba-5">
-    <video @click.stop controls :src="st.play.url" class="w-all ra-6"  ></video>
+    <video @click.stop controls :src="st.play.url" class="w-all ra-6"></video>
   </div>
+
+  <dig :isHeader="false" v-model="st.isScreen">
+    <div class="pp30 sha-card">
+      <div class="flex w-all fd-c">
+        <div class="flex fb nodarg caphover hand w-all jc-b h-33 fs-16 ai-c" v-for="item in st.screenList.filter(v=>v.name||v.title)">
+          <span class=" ">{{item.name||item.title}}</span>
+          <span class=" ml10">截屏</span>
+        </div>
+      </div>
+    </div>
+  </dig>
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import yy from '@lib/mixin';
 import useStore from './store';
+import { useRoute } from 'vue-router';
+const re = useRoute();
 const st = useStore();
 const isPlay = ref(false);
 const nameList = ref([]);
 const volume = ref(1);
+
+
 
 const voiceList = [];
 function btnBarSize(type) {
@@ -81,7 +104,7 @@ function playConfig() {
   isPlay.value = true;
 }
 
-function formatTip(e){
+function formatTip(e) {
   return e
 }
 
@@ -116,8 +139,16 @@ if (!yy.storage('voiceList')) {
 </script>
 
 <style lang='less'>
+.caphover{
+  &:hover{
+    span{
+      color: #409eff !important;
+    }
+  }
+}
 .nodarg {
   -webkit-app-region: no-drag;
+  -webkit-user-select: none;
 }
 .hoverBar {
   &:hover {

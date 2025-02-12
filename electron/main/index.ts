@@ -1,9 +1,11 @@
-import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, desktopCapturer, ipcMain, dialog } from "electron";
 import log from 'electron-log/main';
 import path from "node:path";
 import './fanyi';
 import './baidu';
 import './tts';
+import capture from './capture'
+// import capture from "../capture/index";
 // import './store';
 let win: any = null;
 // import log from 'electron-log/renderer';
@@ -24,13 +26,13 @@ if (!app.requestSingleInstanceLock()) {
 }
 async function initWindow() {
   // let preload=require('../preload/index');
-  let preload=path.join(__dirname, "../electron/store/index.ts");
+  let preload = path.join(__dirname, "../electron/store/index.ts");
   if (process.env.npm_lifecycle_event != 'dev') {
-    preload=path.join(__dirname, "./assets/preload.js")
+    preload = path.join(__dirname, "./assets/preload.js")
   }
   win = new BrowserWindow({
-    width: 900,
-    minWidth: 700,
+    width: 1200,
+    minWidth: 800,
     // minHeight: 650,
     height: 700,
     frame: false,
@@ -47,10 +49,11 @@ async function initWindow() {
   })
   // win.webContents.openDevTools();
   if (process.env.npm_lifecycle_event == 'dev') {
-    win.loadURL('http://localhost:3009/');
+    win.loadURL('http://localhost:3009');
   } else {
     win.loadFile(path.join(__dirname, "./index.html"))
   }
+  capture(win)
 }
 
 app.whenReady().then(initWindow);
@@ -64,7 +67,11 @@ app.on('window-all-closed', () => {
 
 
 ipcMain.handle('open-dev', (e, data) => {
-  win.webContents.openDevTools();
+  setTimeout(() => { win.webContents.openDevTools({ mode: "detach", activate: true, }); }, 1000);
+})
+
+ipcMain.handle('getSources', (e, data) => {
+  return desktopCapturer.getSources({ types: ['screen'] })
 })
 
 ipcMain.handle('win-bar', async (event, data) => {

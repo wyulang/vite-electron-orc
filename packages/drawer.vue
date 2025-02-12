@@ -1,6 +1,6 @@
 <template>
   <div ref="drawers" class="drawer">
-    <div :class="maskClass" :style="maskStyle" @click="closeByMask"></div>
+    <div :class="maskClass" :style="maskStyle" class="nodarg" @click="closeByMask"></div>
     <div :class="mainClass" :style="mainStyle" class="main flex fd-c">
       <div class="drawer-head fs-16 ai-c">
         <span class="fb ">{{ title }}</span>

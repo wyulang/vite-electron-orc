@@ -67,10 +67,6 @@ function btnClear() {
 }
 
 function blurSerch(e) {
-  window.storeApi.setUser().then(res=>{
-    console.log(res);
-  })
-  return;
   if (!info.serchText.trim()) {
     yy.msg.error('请输入单词或文本');
     return;

@@ -3,7 +3,7 @@ const { PrismaClient } = require('../../generated/client');
 const api = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.npm_lifecycle_event == 'dev' ? 'file:../../generated/client/xiaoxuebao.db' : "file:../../db/xiaoxuebao.db"
+      url: process.env.npm_lifecycle_event == 'dev' ? 'file:./xiaoxuebao.db' : "file:../../db/xiaoxuebao.db"
     }
   },
 });
@@ -29,5 +29,11 @@ contextBridge.exposeInMainWorld('storeApi', {
   },
   ipcRenderer: (channel, data) => {
     return ipcRenderer.invoke(channel, data);
+  },
+  send: (channel, data) => {
+    return ipcRenderer.send(channel, data)
+  },
+  invoke: (channel, data) => {
+    return ipcRenderer.invoke(channel, data)
   }
 })

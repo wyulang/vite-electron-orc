@@ -32,11 +32,12 @@ export default defineConfig({
         }
       }
     }),
-    // CopyPlugin([
-    //   // 目录复制
-    //   {from: 'generated/client', to: 'wwww/generated/client'},
-    //   {from: 'prisma/xiaoxuebao.db', to: 'wwww/generated/client/xiaoxuebao.db'},
-    // ])
+    CopyPlugin([
+      // 目录复制
+      // {from: 'generated/client', to: 'wwww/generated/client'},
+      // {from: 'prisma/xiaoxuebao.db', to: 'wwww/generated/client/xiaoxuebao.db'},
+      // {from: 'electron/main/ScreenCapture.exe', to: 'wwww/assets/ScreenCapture.exe'}
+    ])
   ],
   build: {
     outDir: "wwww",

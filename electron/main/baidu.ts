@@ -43,22 +43,25 @@ ipcMain.handle('baidu-video', async (e, data) => {
 })
 
 ipcMain.handle('baidu-video-heji', async (e, data) => {
+  let params = {
+    pd: 'video_compilation',
+    resource_id: 5376,
+    atn: 'index',
+    compilationId: data.compilationId,
+    hejiNid: data.hejiNid,
+    page_type: 2,
+    pn: data.pn,
+    word: data.word,
+    loc: data.loc,
+    rn: 10,
+    top: { "sfhs": 1 },
+    frsrcid: data.frsrcid,
+    lid: data.lid,
+    referlid: data.referlid,
+    data_type: 'json'
+  }
   return axios.get(`https://m.baidu.com/video/dsp/hejilist`, {
-    params: {
-      pd: 'video_compilation',
-      resource_id: 5376,
-      atn: 'index',
-      compilationId: data.compilationId,
-      hejiNid: data.hejiNid,
-      page_type: 2,
-      pn: data.page,
-      rn: 10,
-      top: { "sfhs": 1 },
-      frsrcid: data.frsrcid,
-      lid: data.lid,
-      referlid: data.referlid,
-      data_type: 'json'
-    }
+    params
   }).then(res => {
     return res.data;
   })

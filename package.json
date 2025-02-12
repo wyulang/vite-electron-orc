@@ -31,6 +31,10 @@
       {
         "from": "prisma/xiaoxuebao.db",
         "to": "db/xiaoxuebao.db"
+      },
+      {
+        "from": "electron/main/ScreenCapture.exe",
+        "to": "db/ScreenCapture.exe"
       }
     ]
   },
@@ -50,15 +54,21 @@
     "vue-tsc": "^2.2.0"
   },
   "dependencies": {
+    "@jitsi/robotjs": "^0.6.13",
+    "@paddlejs-models/ocr": "^1.2.4",
     "@prisma/client": "^6.1.0",
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
     "electron-log": "^5.2.4",
     "md5": "^2.3.0",
+    "node-screenshots": "^0.2.1",
+    "paddleocrjson": "^1.1.1-a",
     "pinia": "^2.3.0",
     "prisma": "^6.1.0",
     "puppeteer": "^23.11.1",
+    "screenshot-desktop": "^1.15.1",
     "sqlite3": "^5.1.7",
+    "tesseract.js": "^6.0.0",
     "vite-copy-plugin": "^0.4.0"
   }
 }

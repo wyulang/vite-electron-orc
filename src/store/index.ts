@@ -25,6 +25,8 @@ export default defineStore('main', {
       ttsConfig: storage('ttsConfig'),
       voiceList: storage('voiceList'),
       nameList: storage('nameList'),
+      screenList: [],
+      isScreen:false,
       play: {
         url: "",
       },
@@ -37,13 +39,18 @@ export default defineStore('main', {
         yy.msg({ message: '单词或文本不为空！', type: "error" });
         return
       }
-      
+
       window['storeApi'].ipcRenderer('tts-speek', { message: data, ...this.ttsConfig }).then(res => {
         const blob = new Blob(res, { type: 'audio/webm' })
         const audio = new Audio(URL.createObjectURL(blob));
         audio.play()
       })
     },
-  
+    getScreen(data) {
+     return window['storeApi'].ipcRenderer('get-capture').then(res => {
+        this.screenList = res;
+        this.isScreen=true;
+      })
+    }
   },
 })
