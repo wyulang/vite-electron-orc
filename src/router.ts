@@ -18,14 +18,6 @@ const routes = [
     }
   },
   {
-    path: '/capture',
-    component: () => import('./page/capture.vue'),
-    name: 'capture',
-    meta:{
-      keep:true
-    }
-  },
-  {
     path: '/video',
     component: () => import('./page/video.vue'),
     name: 'video',
