@@ -35,7 +35,7 @@
           <input placeholder="输入标题" type="text" class="pl10 b-d ra-4 h-40 flex-1 ml10 pr10 pt5 pb5">
           <span class="iconfont icon-xinjianziji nodarg hand ml10 fs-30 fc-aa"></span>
         </div>
-        <div class="flex fw"></div>
+        <div class="flex fd-c"></div>
       </div>
     </div>
   </drawer>
@@ -57,6 +57,16 @@ const details = ref("")
 
 function changeContent(e) {
   details.value = e.srcElement.innerText.replace(/<br>/g, '').split('$');
+}
+
+
+function btnSave(){
+  window.storeApi.db({sql:'INSERT INTO users VALUES (3, "Alice")'}).run.then(res=>{
+    console.log(res);
+  })
+  // window.storeApi.db({sql:'SELECT * FROM users'}).all.then(res=>{
+  //   console.log(res);
+  // })
 }
 
 function btnAddTimu() {

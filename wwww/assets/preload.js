@@ -1,5 +1,6 @@
 "use strict";
 const { PrismaClient } = require("../../generated/client");
+const duckdb = require("duckdb");
 const api = new PrismaClient({
   datasources: {
     db: {
@@ -20,6 +21,25 @@ contextBridge.exposeInMainWorld("storeApi", {
     }).then((res) => {
       return JSON.stringify(res);
     });
+  },
+  db: (data) => {
+    let db = new duckdb.Database("E:/db/xiaoxuebao.db");
+    let con = db.connect();
+    return {
+      run: new Promise((resolve, reject) => {
+        con.run(data.sql, (err, res) => {
+          resolve({ data: { err, res } });
+          con.close();
+        });
+      }),
+      all: new Promise((resolve, reject) => {
+        con.all(data.sql, (err, res) => {
+          resolve({ data: res });
+          reject({ data: err });
+          con.close();
+        });
+      })
+    };
   },
   getUser: (data) => {
     return api.user.findFirst().then((res) => {
