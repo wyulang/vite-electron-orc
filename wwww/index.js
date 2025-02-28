@@ -44766,6 +44766,7 @@ electron.ipcMain.handle("getVoice", async (e, data2) => {
 });
 require("child_process");
 require("tesseract.js");
+const sharp = require("sharp");
 let isDev = process.env.npm_lifecycle_event == "dev";
 const capture = (win2) => {
   electron.ipcMain.handle("capture-image", (e, data2) => {
@@ -44781,10 +44782,20 @@ const capture = (win2) => {
             let orcFile = path.join(__dirname, isDev ? "../PaddleOCR-json/PaddleOCR-json.exe" : "../../db/ScreenCapture.exe");
             let orcCwd = path.join(__dirname, isDev ? "../PaddleOCR-json" : "../../db/ScreenCapture.exe");
             let orc = new OCR(orcFile, [], { cwd: orcCwd }, false);
-            orc.flush({ image_base64: electron.clipboard.readImage().toDataURL().replace("data:image/png;base64,", "") }).then((res) => {
+            orc.flush({ image_base64: electron.clipboard.readImage().toDataURL().replace(/^data:image\/\w+;base64,/, "") }).then((res) => {
               resolve({ image: electron.clipboard.readImage().toDataURL(), text: res });
               orc.terminate();
             });
+          } else if (data2.sharp) {
+            const buffer = Buffer.from(electron.clipboard.readImage().toDataURL().replace(/^data:image\/\w+;base64,/, ""), "base64");
+            sharp(buffer).png({ quality: 30, compressionLevel: 9 }).tint({ r: 255, g: 255, b: 255 }).toBuffer((err, sdata, info) => {
+              if (err) {
+                reject({ msg: "压缩图片时出错" + err });
+              } else {
+                const compressedBase64 = sdata.toString("base64");
+                resolve({ image: "data:image/png;base64," + compressedBase64 });
+              }
+            }).toFile("demo.png");
           } else {
             resolve({ image: electron.clipboard.readImage().toDataURL() });
           }

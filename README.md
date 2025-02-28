@@ -86,3 +86,7 @@ npx Prisma 是一个用于数据库访问和管理的工具。以下是一些常
 
 <!-- 网址截屏 -->
 screenshot-stream
+
+<!-- 更改背景颜色  透明 -->
+https://www.photoroom.com/zh/tools/change-background-color
+https://www.picsman.ai/zh-cn/tools/white-background

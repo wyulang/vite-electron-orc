@@ -11,6 +11,7 @@
       </div>
       <div class="flex-1 rel">
         <div class="flex abs ai-c ar10 at10">
+          <span @click="st.isConfig=true" class="iconfont nodarg hand fs-20 ml15 icon-shezhi1"></span>
           <span @click="playConfig()" class="iconfont nodarg hand fs-20 ml15 icon-bofangshezhi-239"></span>
           <span @click="btnConsloe()" class="iconfont nodarg hand fs-20 ml15 icon-kongzhitai"></span>
           <span @click="btnReplay()" class="iconfont nodarg hand fs-16 ml15 icon-a-shuaxin1"></span>
@@ -62,16 +63,19 @@
     <video @click.stop controls :src="st.play.url" class="w-all ra-6"></video>
   </div>
 
-  <dig :isHeader="false" v-model="st.isScreen">
+  <dig :isHeader="false" v-model="st.isConfig">
     <div class="pp30 sha-card">
-      <div class="flex w-all fd-c">
-        <div class="flex fb nodarg caphover hand w-all jc-b h-33 fs-16 ai-c" v-for="item in st.screenList.filter(v=>v.name||v.title)">
-          <span class=" ">{{item.name||item.title}}</span>
-          <span class=" ml10">截屏</span>
-        </div>
+      <div class="flex ai-c">
+        <span>初始化数据库</span>
+        <div @click="btnSetDB" class="h-35 btn ml10 pl10 pr10 ra-5 btn-primary">初始化</div>
       </div>
     </div>
   </dig>
+
+
+  <div @click="st.isPic=''" v-if="st.isPic" style="z-index: 99999;" class="w-all nodarg flex pp20 ai-c jc-c h-all fixed at0 al0 ab0 ar0 ba-5">
+    <img :src="st.isPic" class="bc-fff" alt="">
+  </div>
 </template>
 
 <script setup lang='ts'>
@@ -79,17 +83,23 @@ import { ref, watch } from 'vue';
 import yy from '@lib/mixin';
 import useStore from './store';
 import { useRoute } from 'vue-router';
+import initTable from '@/store/dbConfit';
 const re = useRoute();
 const st = useStore();
 const isPlay = ref(false);
 const nameList = ref([]);
 const volume = ref(1);
 
-
-
 const voiceList = [];
 function btnBarSize(type) {
   window.storeApi.ipcRenderer('win-bar', type);
+}
+
+// 初始化数据库
+function btnSetDB(){
+  ddb.run({sql:initTable.table}).then(res=>{
+    yy.msg.success('设置成功')
+  })
 }
 
 function btnReplay() {

@@ -45,7 +45,7 @@
 
     <!-- 弹出层 -->
     <transition :name="info.trans">
-      <article :style="contentStyle" v-show="info.visible" ref="selectBoy" class="abs zi-8888 hidden _selects_dropdown fc-333 ra-5">
+      <article :style="contentStyle" v-show="info.visible" ref="selectBoy" class="abs zi-8888 nodarg hidden _selects_dropdown fc-333 ra-5">
         <scrollbar :auto="info.scrollTop" @scroll="onScroll" class="max-height">
           <!-- 真实高度 -->
           <div v-if="baseList.length&&!info.isload" class="w-all hi-36" :style="{height:contentHeight.height+'px'}">

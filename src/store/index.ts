@@ -27,10 +27,12 @@ export default defineStore('main', {
       nameList: storage('nameList'),
       screenList: [],
       isScreen:false,
+      isConfig:false,//全局设置
       play: {
         url: "",
       },
-      heji: {}
+      heji: {},
+      isPic:''
     }
   },
   actions: {
