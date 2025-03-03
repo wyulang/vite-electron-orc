@@ -21,7 +21,7 @@
     <template v-slot:btn>
       <div class="flex flex-1 ai-c">
         <span @click="btnAddTimu" class="iconfont ml20 icon-tianjia4 fs-30 nodarg hand fc-danger"></span>
-        <Select v-model="info.nianji" class="w-90 ml10 nodarg" props="t,v" :data="nianji"></Select>
+        <Select v-model="info.nianji" class="w-100 ml10 nodarg" props="t,v" :data="nianji"></Select>
         <Select v-model="info.kemu" class="w-90 ml10 nodarg" props="t,v" :data="[{t:'语文',v:0},{t:'数学',v:1},{t:'英语',v:2},{t:'科学',v:3}]"></Select>
         <tooltip click class="ml10">
           <span class="hand pp5">符号</span>
@@ -92,23 +92,23 @@ const rt = useRouter();
 const fuhao = ['+', '-', '×', '÷', '=', '≠', '≈', '<', '>', '≤', '≥']
 const nianji = [
   { t: '一年级上', v: 1 },
-  { t: '一年级下', v: 1 },
-  { t: '二年级上', v: 1 },
-  { t: '二年级下', v: 1 },
-  { t: '三年级上', v: 2 },
-  { t: '三年级下', v: 2 },
-  { t: '四年级上', v: 3 },
-  { t: '四年级下', v: 3 },
-  { t: '五年级上', v: 4 },
-  { t: '五年级下', v: 4 },
-  { t: '六年级上', v: 5 },
-  { t: '六年级下', v: 5 },
-  { t: '初一上', v: 6 },
-  { t: '初一下', v: 6 },
-  { t: '初二上', v: 7 },
-  { t: '初二下', v: 7 },
-  { t: '初三上', v: 8 },
-  { t: '初三下', v: 8 }
+  { t: '一年级下', v: 2 },
+  { t: '二年级上', v: 3 },
+  { t: '二年级下', v: 4 },
+  { t: '三年级上', v: 5 },
+  { t: '三年级下', v: 6 },
+  { t: '四年级上', v: 7 },
+  { t: '四年级下', v: 8 },
+  { t: '五年级上', v: 9 },
+  { t: '五年级下', v: 10 },
+  { t: '六年级上', v: 11 },
+  { t: '六年级下', v: 12 },
+  { t: '初一上', v: 13 },
+  { t: '初一下', v: 14 },
+  { t: '初二上', v: 15 },
+  { t: '初二下', v: 16 },
+  { t: '初三上', v: 17 },
+  { t: '初三下', v: 18 }
 ]
 
 const info = reactive({
