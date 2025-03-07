@@ -90,3 +90,9 @@ screenshot-stream
 <!-- 更改背景颜色  透明 -->
 https://www.photoroom.com/zh/tools/change-background-color
 https://www.picsman.ai/zh-cn/tools/white-background
+
+<!-- 中文句子转拼音 -->
+https://www.npmjs.com/package/pinyin
+https://www.npmjs.com/package/tiny-pinyin
+https://toucantts.com/zh?ref=aigchub.top#Demo
+https://www.npmjs.com/package/tiktok-tts
