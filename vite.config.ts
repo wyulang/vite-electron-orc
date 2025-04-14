@@ -1,9 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import CopyPlugin from "vite-copy-plugin";
-import { join } from 'path'
 import path from 'path';
-import electron from "vite-plugin-electron/simple";
+import electron from "vite-plugin-electron";
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
@@ -13,37 +11,22 @@ export default defineConfig({
   plugins: [
     vue(),
     electron({
-      main: {
-        entry: 'electron/main/index.ts',
-        vite: {
-          build: {
-            outDir: "wwww"
-          }
-        }
-      },
-      preload: {
-        input: {
-          preload: 'electron/store/index.ts'
-        },
-        vite: {
-          build: {
-            outDir: "wwww/assets"
+      entry: 'electron/index.ts',
+      vite: {
+        build: {
+          outDir: "www",
+          rollupOptions: {
+            external: ['duckdb', 'fs', 'path', 'os'] // 排除原生模块
           }
         }
       }
     }),
-    CopyPlugin([
-      // 目录复制
-      // {from: 'generated/client', to: 'wwww/generated/client'},
-      // {from: 'prisma/xiaoxuebao.db', to: 'wwww/generated/client/xiaoxuebao.db'},
-      // {from: 'electron/main/ScreenCapture.exe', to: 'wwww/assets/ScreenCapture.exe'}
-    ])
   ],
   build: {
-    outDir: "wwww",
+    outDir: "www",
     rollupOptions: {
-      external: ['electron'],
-    },
+      external: ['electron'] // 排除 Electron 本身
+    }
   },
   server: {
     host: true, // 指定服务器主机名

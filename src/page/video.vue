@@ -1,12 +1,12 @@
 <template>
   <div class="w-all flex pl15 h-all fd-c pr5">
     <div class="flex h-33 pt10 ai-c">
-      <span class="fs-13 fb">视频资料({{info.list.length}}个视频)</span>
+      <span class="fs-18 white-text">视频资料({{info.list.length}}个视频)</span>
     </div>
 
     <div class="flex ai-c mt20 jc-c pr10">
       <div class="flex ai-c nodarg h-50 bb-d w-all">
-        <input v-model="info.serchText" @keydown="keydown" class="h-all  flex-1 fs-16" placeholder="在此输入视频资料名称" type="text">
+        <input v-model="info.serchText" @keydown="keydown" class="h-all bc-t flex-1 fs-16" placeholder="在此输入视频资料名称" type="text">
         <div class="flex ai-c mr10" v-if="info.isLoad"><img class="w-20" src="../assets/load.gif" alt=""></div>
         <span v-if="info.serchText" @click="btnClear" class="iconfont hand nodarg icon-qingkong mr15 fs-24"></span>
         <div @click="onSerch" class="pl11 pr11 pt6 pb6 ra-5 hand fs-15 fc-fff bc-primary"><span class="iconfont fb hand fs-16 mr10 icon-search"></span>搜索</div>
@@ -36,6 +36,7 @@ defineOptions({
 import { ref, reactive, onActivated, onDeactivated } from 'vue';
 import yy from '@lib/mixin';
 import { useRouter } from 'vue-router';
+const { ipcRenderer } = window.require('electron');
 const rt = useRouter();
 import useStore from '../store';
 const st = useStore();
@@ -117,7 +118,7 @@ function initData(page = 10) {
 
   if (info.isBotom) return;
   yy.spinner.show()
-  window['storeApi'].ipcRenderer('baidu-video', { serchText: info.serchText, page: info.page }).then(res => {
+  ipcRenderer.invoke('baidu-video', { serchText: info.serchText, page: info.page }).then(res => {
     console.log(res);
 
     yy.spinner.close()

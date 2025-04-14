@@ -75,12 +75,11 @@ const scollClassStyle = computed(() => {
 
 function onScroll(e) {
   info.value.scrollValue = (e.srcElement.scrollTop * 100) / info.value.myHeight;
-  
   emit('scroll', {
     scrollTop: info.value.scrollValue,
     top: e.srcElement.scrollTop,
     // 是否到最底部
-    isBottom: (e.target.offsetHeight + e.srcElement.scrollTop) >= e.srcElement.scrollHeight,
+    isBottom: (e.target.getBoundingClientRect().height + e.srcElement.scrollTop) >= (info.value.scrollHeight - 1),
     // 是否到最顶部
     isTop: e.srcElement.scrollTop <= 0
   })

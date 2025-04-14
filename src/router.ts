@@ -4,35 +4,45 @@ const routes = [
   {
     path: '/',
     component: () => import('./page/index.vue'),
-    name: 'index',
-    meta:{
-      keep:false
-    }
+    name: 'index'
   },
   {
-    path: '/timu',
-    component: () => import('./page/timu.vue'),
-    name: 'timu',
-    meta:{
-      keep:true
-    }
+    path: '/ai',
+    component: () => import('./page/ai.vue'),
+    name: 'ai'
   },
   {
     path: '/video',
     component: () => import('./page/video.vue'),
     name: 'video',
-    meta:{
-      keep:true
+    meta: {
+      keep: true
     }
   },
   {
     path: '/video/heji',
     component: () => import('./page/video.heji.vue'),
     name: 'video.heji',
-    meta:{
-      keep:true
+    meta: {
+      keep: true
     }
-  }
+  },
+  {
+    path: '/tiku',
+    component: () => import('./page/tiku.vue'),
+    name: 'tiku',
+    meta: {
+      keep: true
+    }
+  },
+  {
+    path: '/english',
+    component: () => import('./page/english.vue'),
+    name: 'english',
+    meta: {
+      keep: true
+    }
+  },
 ];
 
 export const router = createRouter({

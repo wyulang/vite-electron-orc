@@ -98,7 +98,6 @@
 import { nextTick, onMounted, ref, watch } from "vue"
 import formulaEditor from 'easy-formula-editor'
 const isFormula = ref(false);
-
 const ps = defineProps({
   exclude: { type: Array, default: [] },
   modelValue: { type: [Array, String, Number, Boolean], default: false },

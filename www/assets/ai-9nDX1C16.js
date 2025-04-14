@@ -1,0 +1,1 @@
+import{c as a,a as n,e as r,f as l}from"./index-R0TPVLXG.js";const _=(t,c)=>{const e=t.__vccOpts||t;for(const[o,s]of c)e[o]=s;return e},p={},d={class:"w-all h-all"};function f(t,c){const e=r("webview");return l(),a("div",d,[n(e,{src:"https://chat.deepseek.com",class:"nodarg w-all h-all"})])}const m=_(p,[["render",f]]);export{m as default};

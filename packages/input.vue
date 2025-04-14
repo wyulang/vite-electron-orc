@@ -6,7 +6,7 @@
     <textarea v-if="type=='textarea'" :maxlength="maxlength" :disabled="disabled" :readonly="readonly" @focus="onFocus" :placeholder="placeholder" @input="onInput" @blur="onBlur" v-model="mvalue" :class="inputClass" style="color:inherit;border:0;"
       class="bc-t abs at0 al0 ab0 ar0 arae-resize ra-4 pt10 pb10 fs-inherit ipt zi-110"></textarea>
     <!-- 输入框 -->
-    <input v-else :class="inputClass" :autocomplete="autocomplete" :maxlength="maxlength" :disabled="disabled" :readonly="readonly" @focus="onFocus" :placeholder="placeholder" @input="onInput" @blur="onBlur" v-model="mvalue" style="color:inherit;border:0;" class="w-all bc-t fs-inherit h-all flex-1" type="text">
+    <input v-else :class="inputClass" :autocomplete="autocomplete" :maxlength="maxlength" :disabled="disabled" :readonly="readonly" @focus="onFocus" :placeholder="placeholder" @input="onInput" @blur="onBlur" v-model="mvalue" style="color:inherit;border:0;" class="w-all bc-t fs-inherit h-all flex-1" :type="type">
     <!-- 关闭 -->
     <svg style="fill:#ccc" v-if="info.isHover&&mvalue&&clear" :class="{'abs abst zi-120 ar2':type=='textarea'}" @click.stop="onClear" class=" iconfix hand mr3 w-17 h-17  " viewBox="0 0 1024 1024">
       <path
@@ -91,6 +91,8 @@ const ps = defineProps({
   // list [{label:'',value}] -- [1,2]=>[{labe:1,value:1},{label:2,value:2}]
   data: { type: [Array, Object], default: [] },
   lazy: { type: Function },
+  // 经过时是否需要显示边框变色
+  select: { type: Boolean, default: true }
 })
 
 const parm = setParm(ps.props);
@@ -113,7 +115,7 @@ const boxClass = computed(() => {
     curr.push(`fs-init ${ps.size}`)
   }
 
-  if (info.visible || info.isHover) {
+  if ((info.visible || info.isHover) && ps.select) {
     curr.push('select')
   }
 

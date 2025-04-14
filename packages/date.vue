@@ -159,8 +159,9 @@
 
       <!-- 年月选择 -->
       <div v-if="info.isYear" :class="{'al0':info.currYearType,'ar0':!info.currYearType}" class="abs w-272 at0 flex ab0 fd-c ra-4 bc-fff">
-        <div class="pt10 pb10 bb-e">
-          <div @click.stop="info.isYear=false" class=" h-28 flex-line ml10 pl10 pr20 hand ai-c fc-primary bc-f6 fs-13 fb">〈 返回选择日期</div>
+        <div class="pt10 pb10 jc-b w-all flex pr10 bb-e">
+          <div @click.stop="info.isYear=false" class=" h-28 flex-line ml10 pl10 pr20 hand ai-c fc-777 fs-13 fb">返回</div>
+          <span @click.stop="info.isYear=false" class="fc-aa hand">确定</span>
         </div>
 
         <div class="flex flex-1 hidden">
@@ -175,8 +176,10 @@
 
       <!-- 时分秒选择 -->
       <div v-if="info.isTime" :class="{'al0':info.currYearType,'ar0':!info.currYearType}" class="abs w-272 at0 flex ab0 fd-c ra-4 bc-fff">
-        <div class="pt10 pb10 bb-e">
-          <div @click.stop="info.isTime=false" class=" h-28 flex-line ml10 pl10 pr20 hand ai-c fc-primary bc-f6 fs-13 fb">〈 返回选择日期</div>
+        <div class="pt10 pb10 flex ai-c jc-b pl2 pr10 bb-e">
+          <div @click.stop="info.isTime=false" class=" h-28 flex-line pr10 hand ai-c fc-primary fs-13">〈 返回选择日期 </div>
+          <span class="fs-12 fc-aaa">({{info.currYearType?'开始时间':'结束时间'}})</span>
+          <span @click.stop="onSaveTime" class="fc-success hand">确定</span>
         </div>
         <div class="flex flex-1  hidden">
           <div id="hourScoll" class="flex-1 h-all auto noscoll">
@@ -559,6 +562,11 @@ function changeDateValue(isClear) {
       if (sDay.value && eDay.value) {
         let sValue = formatDate(`${sDay.value} ${sDay.hour}:${sDay.minute}:${sDay.second}`, format)
         let eValue = formatDate(`${eDay.value} ${eDay.hour}:${eDay.minute}:${eDay.second}`, format)
+        let oValue = sValue;
+        if (sValue > eValue) {
+          sValue = eValue;
+          eValue = oValue;
+        }
         if (['number', 'timestamp'].includes(ps.format)) {
           mvalue.value = new Date(sValue).getTime()
           end.value = new Date(eValue).getTime()
@@ -1095,10 +1103,10 @@ const endPath = computed(() => {
 
 <style lang='less'>
 ._date {
-  .w-272{
+  .w-272 {
     width: 272px;
   }
-  .w-274{
+  .w-274 {
     width: 274px;
   }
   .noscoll {

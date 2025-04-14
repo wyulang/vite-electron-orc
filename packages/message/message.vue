@@ -198,11 +198,11 @@ function btnSave(type) {
     }
   }
   .error {
-    background:#00000080;
-    // border: 1px solid #fde2e2;
-    color: #fff;
+    background-color: #fef0f0;
+    border: 1px solid #fde2e2;
+    color: #f56c6c;
     svg {
-      fill: #fff;
+      fill: #f56c6c;
     }
   }
   .info {

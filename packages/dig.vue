@@ -1,9 +1,9 @@
 <template>
   <transition class="DIALOGFAG" name="dialog">
     <section v-if="modelValue" :id="currIndex" :style="{'z-index':currIndex}" class="fixed at0 al0 ab0 ar0">
-      <section ref="digModel" v-if="isModel" @click="closeWin(true)" :style="{'z-index':currIndex}" :class="bcOpacity" class="zi-100 nodarg dialog__overlay flex w-all h-all"></section>
+      <section ref="digModel" v-if="isModel" @click="closeWin(true)" :style="{'z-index':currIndex}" :class="bcOpacity" class="zi-100 dialog__overlay flex w-all h-all"></section>
       <section ref="digmain" :class="{[opacity]:opacity,'bc-fff':!opacity}" class="zi-120  dialog__content sha-card flex-line fd-c abs wi-250 ra-3 m-auto">
-        <svg v-if="!isHeader" class="abs at-32 ar-32 hand nodarg" @click.stop="closeWin" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="34" height="34">
+        <svg v-if="!isHeader" class="abs w-30 h-30 at-27 ar-27 hand" @click.stop="closeWin" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M589.531429 512l129.243428-129.170286a54.857143 54.857143 0 1 0-77.531428-77.531428L511.926857 434.322286 382.829714 305.225143a54.857143 54.857143 0 1 0-77.531428 77.531428l129.097143 129.243429-129.170286 129.170286a54.857143 54.857143 0 1 0 77.531428 77.531428l129.243429-129.097143 129.170286 129.170286a54.857143 54.857143 0 1 0 77.531428-77.531428L589.677714 511.926857zM512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024z"
             fill="#fff"></path>
@@ -11,7 +11,7 @@
         <!-- 头部 -->
         <div ref="hearder" v-if="isHeader" :class="{'bc-f2':!opacity}" style="cursor: move;border-top-left-radius: 3px;border-top-right-radius: 3px;" class="noselect ai-c pl10 jc-b flex w-all h-45">
           <span :class="{'fc-fff':opacity}" class="fs-15" v-html="title"></span>
-          <span @click.stop="closeWin" :class="{'fc-fff':opacity,'fc-888':!opacity}" class="hand fc-888 hand nodarg fs-18 pp10">✖</span>
+          <span @click.stop="closeWin" :class="{'fc-fff':opacity,'fc-888':!opacity}" class="hand fc-888 fs-18 pp10">✖</span>
         </div>
         <!-- 内容 -->
         <div class="flex-1 w-all">

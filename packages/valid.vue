@@ -1,8 +1,8 @@
 <template>
   <div ref="vslot" :key="uuid" :style="{borderRadius:config.Radius}" :class="validClass" class="rel">
     <slot></slot>
-    <div v-if="config.check&&ps.info.check" :style="{borderRadius:config.tipRadius}" class="abs at-0 ar0 tips fs-12 ai-c jc-c pl8 pr8 pt3 pb3">
-      <span class="nowrap fs-11">{{config.message}}</span>
+    <div v-if="config.check&&ps.info.check" :style="{borderRadius:config.tipRadius}" class="abs at-0 ar0 tips ai-c jc-c pl8 pr8 pt3 pb3">
+      <span class="nowrap">{{config.message}}</span>
       <!-- <span style="bottom:-4px; transform:translateX(-10%) rotate(45deg)" class="w-8 ar10 tipsarr h-8 abs"></span> -->
     </div>
   </div>
@@ -187,7 +187,7 @@ watch(() => ps.value, (news, old) => {
   border: 1px solid red;
 }
 .tips {
-  background-color: #ffe2e2;
+  // background-color: #ffe2e2;
   color: #f56c6c;
 }
 

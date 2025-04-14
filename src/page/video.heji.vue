@@ -21,6 +21,7 @@
 <script setup lang='ts'>
 import { reactive, ref } from 'vue';
 import yy from '@lib/mixin';
+const { ipcRenderer } = window.require('electron');
 import useStore from '../store';
 const st = useStore();
 const info = reactive({
@@ -34,7 +35,7 @@ const info = reactive({
 function initData() {
   if (info.isBotom) return;
   yy.spinner.show()
-  window['storeApi'].ipcRenderer('baidu-video-heji', { ...st.heji, pn: info.pn, hejiLoc: info.hejiLoc }).then(res => {
+  ipcRenderer.invoke('baidu-video-heji', { ...st.heji, pn: info.pn, hejiLoc: info.hejiLoc }).then(res => {
     console.log(res);
     
     yy.spinner.close()
